@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier retour</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <h1>Return Tracker</h1>
+        <p>Modifier un retour enregistré</p>
+    </header>
+
+    <nav>
+        <a href="/stats">Statistiques</a>
+        <a href="/products">Produits</a>
+        <a href="/add-return">Ajouter un retour</a>
+        <a href="/returns">Retours</a>
+    </nav>
+
+    <h2>Modifier retour</h2>
+
+    <form method="POST">
+
+        <h3>Produit retourné</h3>
+
+        {% if grouped_products %}
+            <div class="product-list">
+                {% for name, colors in grouped_products.items() %}
+                <details class="product-block">
+                    <summary>{{ name }}</summary>
+
+                    <div class="product-content">
+                        {% for color, sizes in colors.items() %}
+                        <details class="color-block">
+                            <summary>Couleur : {{ color }}</summary>
+
+                            <div class="size-list">
+                                {% for p in sizes %}
+                                <label class="size-choice">
+                                    <input
+                                        type="radio"
+                                        name="product_id"
+                                        value="{{ p.id }}"
+                                        {% if p.id == return_item.product_id %}checked{% endif %}
+                                        required
+                                    >
+                                    Taille : {{ p.size }}
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </details>
+                        {% endfor %}
+                    </div>
+                </details>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <br>
+
+        <label>Raison</label><br>
+        <select name="reason" required>
+            <option value="Taille trop petite" {% if return_item.reason == "Taille trop petite" %}selected{% endif %}>Taille trop petite</option>
+            <option value="Taille trop grande" {% if return_item.reason == "Taille trop grande" %}selected{% endif %}>Taille trop grande</option>
+            <option value="Mauvaise taille" {% if return_item.reason == "Mauvaise taille" %}selected{% endif %}>Mauvaise taille</option>
+            <option value="Mauvaise couleur" {% if return_item.reason == "Mauvaise couleur" %}selected{% endif %}>Mauvaise couleur</option>
+            <option value="Mauvais produit" {% if return_item.reason == "Mauvais produit" %}selected{% endif %}>Mauvais produit</option>
+            <option value="Qualité non satisfaisante" {% if return_item.reason == "Qualité non satisfaisante" %}selected{% endif %}>Qualité non satisfaisante</option>
+            <option value="Défaut produit" {% if return_item.reason == "Défaut produit" %}selected{% endif %}>Défaut produit</option>
+            <option value="Délais de livraison" {% if return_item.reason == "Délais de livraison" %}selected{% endif %}>Délais de livraison</option>
+            <option value="Indiqué livré mais non reçu" {% if return_item.reason == "Indiqué livré mais non reçu" %}selected{% endif %}>Indiqué livré mais non reçu</option>
+            <option value="Changement d’avis" {% if return_item.reason == "Changement d’avis" %}selected{% endif %}>Changement d’avis</option>
+            <option value="Autre" {% if return_item.reason == "Autre" %}selected{% endif %}>Autre</option>
+        </select>
+
+        <br><br>
+
+        <label>Action</label><br>
+        <select name="action" required>
+            <option value="Remboursement" {% if return_item.action == "Remboursement" %}selected{% endif %}>Remboursement</option>
+            <option value="Échange" {% if return_item.action == "Échange" %}selected{% endif %}>Échange</option>
+            <option value="Bon d’achat" {% if return_item.action == "Bon d’achat" %}selected{% endif %}>Bon d’achat</option>
+        </select>
+
+        <br><br>
+
+        <label>Commentaire</label><br>
+        <textarea name="comment" rows="4">{{ return_item.comment }}</textarea>
+
+        <br><br>
+
+        <button type="submit">Enregistrer</button>
+
+    </form>
+
+</div>
+</body>
+</html>

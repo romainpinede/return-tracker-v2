@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajouter un retour</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <h1>Return Tracker</h1>
+        <p>Ajouter un retour produit</p>
+    </header>
+
+    <nav>
+        <a href="/stats">Statistiques</a>
+        <a href="/products">Produits</a>
+        <a href="/add-return">Ajouter un retour</a>
+        <a href="/returns">Retours</a>
+    </nav>
+
+    <h2>Ajouter un retour</h2>
+
+    <form method="POST">
+
+        <h3>Produit retourné</h3>
+
+        <input type="hidden" name="product_id" id="selected-product-id">
+
+        <button type="button" class="product-select-button" id="product-select-button">
+            Sélectionnez le produit retourné
+        </button>
+
+        <div class="product-picker" id="product-picker">
+            {% if grouped_products %}
+                <div class="product-list">
+                    {% for name, colors in grouped_products.items() %}
+                    <details class="product-block">
+                        <summary>{{ name }}</summary>
+
+                        <div class="product-content">
+                            {% for color, sizes in colors.items() %}
+                            <details class="color-block">
+                                <summary>Couleur : {{ color }}</summary>
+
+                                <div class="size-list">
+                                    {% for p in sizes %}
+                                    <button
+                                        type="button"
+                                        class="variant-choice"
+                                        data-product-id="{{ p.id }}"
+                                        data-product-name="{{ p.name }}"
+                                        data-product-color="{{ p.color }}"
+                                        data-product-size="{{ p.size }}"
+                                    >
+                                        Taille : {{ p.size }}
+                                    </button>
+                                    {% endfor %}
+                                </div>
+                            </details>
+                            {% endfor %}
+                        </div>
+                    </details>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>Aucun produit disponible.</p>
+            {% endif %}
+        </div>
+
+        <div class="selected-product-box" id="selected-product-box">
+            Aucun produit sélectionné
+        </div>
+
+        <br>
+
+        <label>Raison</label><br>
+        <select name="reason" required>
+            <option value="Taille trop petite">Taille trop petite</option>
+            <option value="Taille trop grande">Taille trop grande</option>
+            <option value="Mauvaise taille">Mauvaise taille</option>
+            <option value="Mauvaise couleur">Mauvaise couleur</option>
+            <option value="Mauvais produit">Mauvais produit</option>
+            <option value="Qualité non satisfaisante">Qualité non satisfaisante</option>
+            <option value="Défaut produit">Défaut produit</option>
+            <option value="Délais de livraison">Délais de livraison</option>
+            <option value="Indiqué livré mais non reçu">Indiqué livré mais non reçu</option>
+            <option value="Changement d’avis">Changement d’avis</option>
+            <option value="Autre">Autre</option>
+        </select>
+
+        <br><br>
+
+        <label>Action</label><br>
+        <select name="action" required>
+            <option value="Remboursement">Remboursement</option>
+            <option value="Échange">Échange</option>
+            <option value="Bon d’achat">Bon d’achat</option>
+        </select>
+
+        <br><br>
+
+        <label>Commentaire</label><br>
+        <textarea name="comment" rows="4" placeholder="Optionnel"></textarea>
+
+        <br><br>
+
+        <button type="submit">Enregistrer</button>
+
+    </form>
+
+</div>
+
+<script>
+    const selectButton = document.getElementById("product-select-button");
+    const picker = document.getElementById("product-picker");
+    const selectedBox = document.getElementById("selected-product-box");
+    const selectedInput = document.getElementById("selected-product-id");
+    const variantButtons = document.querySelectorAll(".variant-choice");
+
+    selectButton.addEventListener("click", function () {
+        if (picker.style.display === "none" || picker.style.display === "") {
+            picker.style.display = "block";
+        } else {
+            picker.style.display = "none";
+        }
+    });
+
+    variantButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            const productId = button.dataset.productId;
+            const productName = button.dataset.productName;
+            const productColor = button.dataset.productColor || "-";
+            const productSize = button.dataset.productSize || "-";
+
+            selectedInput.value = productId;
+
+            selectedBox.textContent = productName + " — " + productColor + " — " + productSize;
+            selectButton.textContent = "Modifier le produit sélectionné";
+
+            picker.style.display = "none";
+        });
+    });
+</script>
+
+</body>
+</html>

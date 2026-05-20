@@ -1,0 +1,256 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f6f6f6;
+    color: #222;
+}
+
+.container {
+    max-width: 950px;
+    margin: 35px auto;
+    padding: 30px;
+    background: white;
+    border: 1px solid #ddd;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+header p {
+    margin-top: 6px;
+    color: #666;
+}
+
+nav {
+    margin: 25px 0;
+    padding: 12px 0;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+nav a {
+    margin-right: 18px;
+    color: #222;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+form {
+    margin-top: 25px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px 18px;
+    background: #222;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #444;
+}
+
+table {
+    width: 100%;
+    margin-top: 25px;
+    border-collapse: collapse;
+    background: white;
+}
+
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+    vertical-align: top;
+}
+
+th {
+    background: #f2f2f2;
+}
+
+.help-text {
+    color: #555;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+/* Product list */
+.product-list {
+    margin-top: 25px;
+}
+
+.product-block {
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    background: #fafafa;
+}
+
+.product-block summary {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.product-content {
+    margin-top: 12px;
+    padding-left: 15px;
+}
+
+.color-block {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    background: white;
+}
+
+.color-block summary {
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.size-list {
+    margin-top: 10px;
+}
+
+.size-choice {
+    display: block;
+    margin: 8px 0;
+    font-weight: normal;
+}
+
+.size-choice input {
+    width: auto;
+    margin-right: 8px;
+}
+
+/* Product picker on return page */
+.product-select-button {
+    width: auto;
+    min-width: 220px;
+    max-width: 300px;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.product-picker {
+    display: none;
+    margin-top: 15px;
+}
+
+.variant-choice {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 8px 0;
+    text-align: left;
+    background: #f2f2f2;
+    color: #222;
+    border: 1px solid #ddd;
+}
+
+.variant-choice:hover {
+    background: #e6e6e6;
+}
+
+.selected-product-box {
+    max-width: 500px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    background: #fafafa;
+    color: #333;
+}
+
+/* Long product names */
+.product-name-cell {
+    width: 260px;
+    max-width: 260px;
+    vertical-align: top;
+}
+
+.name-details {
+    max-width: 260px;
+}
+
+.name-details summary {
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    max-width: 260px;
+}
+
+.name-details summary::marker {
+    font-size: 12px;
+}
+
+.short-name {
+    display: inline-block;
+    max-width: 220px;
+    line-height: 1.4;
+}
+
+.full-name {
+    max-width: 240px;
+    margin: 8px 0 0 18px;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.4;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+/* Details in statistics and comments */
+.stat-details summary,
+.comment-details summary {
+    cursor: pointer;
+}
+
+.stat-details ul {
+    margin: 8px 0 0;
+    padding-left: 18px;
+}
+
+.stat-details li {
+    margin-bottom: 4px;
+    color: #555;
+    font-size: 14px;
+}
+
+.comment-details p {
+    max-width: 260px;
+    margin: 8px 0 0;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.4;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+td a {
+    color: #222;
+    text-decoration: underline;
+}

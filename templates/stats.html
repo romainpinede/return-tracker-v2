@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Statistiques</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <h1>Return Tracker</h1>
+        <p>Analyse simple des retours produits</p>
+    </header>
+
+    <nav>
+        <a href="/stats">Statistiques</a>
+        <a href="/products">Produits</a>
+        <a href="/add-return">Ajouter un retour</a>
+        <a href="/returns">Retours</a>
+    </nav>
+
+    <h2>Statistiques</h2>
+
+    <p class="help-text">
+        Les produits sont classés selon le nombre de retours et le pourcentage de la raison principale, afin d’afficher en premier ceux qui semblent avoir un problème clairement identifiable.
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Couleur</th>
+                <th>Taille</th>
+                <th>Retours</th>
+                <th>Raison principale</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in product_stats %}
+            <tr>
+                <td class="product-name-cell">
+                    {% if row.name|length > 35 %}
+                        <details class="name-details">
+                            <summary>
+                                <span class="short-name">{{ row.name[:35] }}...</span>
+                            </summary>
+                            <p class="full-name">{{ row.name }}</p>
+                        </details>
+                    {% else %}
+                        <span class="short-name">{{ row.name }}</span>
+                    {% endif %}
+                </td>
+                <td>{{ row.color }}</td>
+                <td>{{ row.size }}</td>
+                <td>{{ row.returns }}</td>
+
+                <td>
+                    <details class="stat-details">
+                        <summary>
+                            {{ row.main_reason }} - {{ row.main_reason_percent }}%
+                        </summary>
+
+                        <ul>
+                            {% for reason in row.reason_details %}
+                            <li>
+                                {{ reason.name }} : {{ reason.percent }}% ({{ reason.count }})
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </details>
+                </td>
+
+                <td>
+                    <details class="stat-details">
+                        <summary>
+                            {{ row.main_action }} - {{ row.main_action_percent }}%
+                        </summary>
+
+                        <ul>
+                            {% for action in row.action_details %}
+                            <li>
+                                {{ action.name }} : {{ action.percent }}% ({{ action.count }})
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </details>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
